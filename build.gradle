@@ -1,5 +1,5 @@
 group 'io.minibig.miniduke'
-version '1.0-SNAPSHOT'
+version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'elasticsearch.esplugin'
