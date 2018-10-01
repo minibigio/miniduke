@@ -1,0 +1,4 @@
+grant {
+    permission java.net.SocketPermission "*", "accept,connect,resolve";
+    permission java.net.NetPermission "getProxySelector";
+};

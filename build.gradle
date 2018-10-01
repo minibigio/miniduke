@@ -1,0 +1,71 @@
+group 'io.minibig.miniduke'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'elasticsearch.esplugin'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.elasticsearch.gradle:build-tools:5.6.7"
+    }
+}
+
+//sourceSets {
+//    main {
+//        resources {
+//            srcDirs = ["src/main/config"]
+//            includes = ["settings.miniduke"]
+//        }
+//    }
+//}
+
+// this is temporal and will be fixed in 6.0
+ext.projectSubstitutions = [:]
+// license of this project
+licenseFile = rootProject.file('LICENSE.txt')
+// copyright notices
+noticeFile = rootProject.file('NOTICE.txt')
+
+esplugin {
+    name 'miniduke'
+    description 'With Gradle'
+    classname 'io.minibig.miniduke.ingest.IngestMinidukePlugin'
+    licenseFile rootProject.file('LICENSE.txt')
+    noticeFile rootProject.file('NOTICE.txt')
+}
+
+dependencies {
+    compile "org.elasticsearch.client:elasticsearch-rest-high-level-client:5.6.7"
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.4'
+    compile 'no.priv.garshol.duke:duke:1.2'
+
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+}
+
+// Set to false to not use elasticsearch checkstyle rules
+checkstyleMain.enabled = true
+checkstyleTest.enabled = true
+
+// FIXME dependency license check needs to be enabled
+dependencyLicenses.enabled = false
+
+// FIXME thirdparty audit needs to be enabled
+thirdPartyAudit.enabled = false
+
+licenseHeaders.enabled = false
