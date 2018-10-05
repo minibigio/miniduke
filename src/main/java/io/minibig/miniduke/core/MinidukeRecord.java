@@ -5,7 +5,11 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -80,7 +84,7 @@ public class MinidukeRecord implements Record {
             return this.suspiciousProperties;
     }
 
-    public ArrayList<ArrayList<Object>> getAllValues() {
+    private ArrayList<ArrayList<Object>> getAllValues() {
         if (!suspiciousRecord)
             return this.values;
         else
@@ -189,11 +193,9 @@ public class MinidukeRecord implements Record {
                 newMap.put(thisEntry.getKey(), value);
             }
             else {
-                if (thisEntry.getValue() instanceof ArrayList) {
-                    ArrayList<Object> values = new ArrayList<>((ArrayList<?>)thisEntry.getValue());
+                ArrayList<Object> values = new ArrayList<>((ArrayList<?>)thisEntry.getValue());
 
-                    newMap.put(thisEntry.getKey(), values);
-                }
+                newMap.put(thisEntry.getKey(), values);
             }
 
         }
