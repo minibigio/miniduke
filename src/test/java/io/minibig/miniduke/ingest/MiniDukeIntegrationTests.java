@@ -8,6 +8,7 @@ import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.cluster.node.info.NodeInfo;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -401,7 +402,7 @@ public class MiniDukeIntegrationTests extends ESIntegTestCase {
         assertEquals(expectedFirstName2, res2.get("first_name"));
     }
 
-
+    @SuppressWarnings("unchecked")
     public void testInsertMaybeMae() throws Exception {
         staticLogger.info("Hi, this is InsertMaybeMae test. Let's go!");
 
@@ -414,8 +415,8 @@ public class MiniDukeIntegrationTests extends ESIntegTestCase {
         staticLogger.info("Index [miniduke_tests] created on ESIntegTests");
 
         List<String> data = new ArrayList<>();
-        data.add("Mae");
-        data.add("Waton");
+        data.add("Maé");
+        data.add("Walton");
         data.add("1972-07-19");
         data.add("0");
         data.add("hulda73@yahoo.com");
@@ -456,7 +457,9 @@ public class MiniDukeIntegrationTests extends ESIntegTestCase {
         Map<String, Object> res = req.getSourceAsMap();
 
         boolean equals = true;
+        // FIXME : Warning unchecked cast, can't manage to find a nice way without SuppressWarnings
         Map<String, Object> res2 = (Map<String, Object>) res.get("2");
+
         for (String field : this.fields) {
             if (keyValues.containsKey(field) && res2.containsKey(field)) {
             boolean equalLists = keyValues.get(field).toString().contentEquals(res2.get(field).toString())?true:false;
