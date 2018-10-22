@@ -14,8 +14,7 @@ This is a free and open source project. You can also contribute (https://github.
 
 ## First steps
 - Clone the project
-- Build the project
-`gradle build`
+- Build the project `gradle build -x test` (to build with tests, please refer to the [contributing page](https://github.com/minibigio/miniduke/wiki/Contribute))
 - Install the plugin
 `./bin/elasticsearch-plugin install file://miniduke-x.x-SNAPSHOT.zip`
 - Set the pipeline
