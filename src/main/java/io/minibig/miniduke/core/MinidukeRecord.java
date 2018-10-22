@@ -1,5 +1,6 @@
 package io.minibig.miniduke.core;
 
+import io.minibig.miniduke.ingest.Miniduke;
 import no.priv.garshol.duke.Record;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
@@ -84,7 +85,7 @@ public class MinidukeRecord implements Record {
             return this.suspiciousProperties;
     }
 
-    private ArrayList<ArrayList<Object>> getAllValues() {
+    public ArrayList<ArrayList<Object>> getAllValues() {
         if (!suspiciousRecord)
             return this.values;
         else
@@ -154,13 +155,6 @@ public class MinidukeRecord implements Record {
         }
     }
 
-    /*public Map<String, Object> makeSuspiciousSource(MinidukeRecord record) {
-        Map<String, Object> suspiciousMap = new HashMap<>();
-        suspiciousMap.put("1", this.makeSource());
-        suspiciousMap.put("2", record.makeSource());
-        return suspiciousMap;
-    }*/
-
     public void makeSuspiciousSource(MinidukeRecord record) {
 
         this.suspiciousValues.addAll(this.getAllValues());
@@ -203,6 +197,12 @@ public class MinidukeRecord implements Record {
         return newMap;
     }
 
+    /**
+     * Unused method, will disappear soon
+     * @deprecated
+     * @return the source as a map
+     */
+    @Deprecated
     public Map<String, Object> makeSource() {
         Map<String, Object> sourceMap = new HashMap<>();
 
@@ -214,4 +214,24 @@ public class MinidukeRecord implements Record {
         return sourceMap;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Map<String, ArrayList<Object>> delIdRec = this.getMappedValues();
+        delIdRec.keySet().removeIf(key -> (key.equals("id")));
+
+        Map<String, ArrayList<Object>> delIdIngest = ((MinidukeRecord) obj).getMappedValues();
+        delIdIngest.keySet().removeIf(key -> (key.equals("id")));
+
+        for (Entry<String, ArrayList<Object>> ingest : delIdIngest.entrySet()) {
+            if (!ingest.getValue().equals(delIdRec.get(ingest.getKey())))
+                return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

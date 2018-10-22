@@ -125,8 +125,10 @@ public class Miniduke {
      *
      * @param rec    a record
      * @param ingest the ingested record
+     * @deprecated   will be soon removed for being useless
      * @return       true if one contains the other
      */
+    @Deprecated
     public static boolean contains(MinidukeRecord rec, MinidukeRecord ingest) {
         boolean contains = false;
         Map<String, ArrayList<Object>> delIdRec = rec.getMappedValues();
