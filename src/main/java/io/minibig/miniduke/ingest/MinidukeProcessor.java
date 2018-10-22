@@ -281,28 +281,7 @@ public class MinidukeProcessor extends AbstractProcessor {
                 Map<Record, Record> recordsMatches = miniDukeML.getMatches();
                 ArrayList<Double> distancesMatches = miniDukeML.getDistance();
 
-                // To speed up, remove records which are the same as the ingest (100% identical)
-                if (miniDukeML.getMatches().size() > 1) {
-                    Map<Record, Record> recordsMatchesTmp = new LinkedHashMap<>();
-                    ArrayList<Double> distancesTmp = new ArrayList<>();
-                    recordsMatches = miniDukeML.getMatches();
-                    int toAddI = 0;
-
-                    for (Map.Entry<Record, Record> rec : recordsMatches.entrySet()) {
-                        if (!Miniduke.contains((MinidukeRecord) rec.getKey(),
-                                (MinidukeRecord) ingestData.getRecords().next()) ||
-                                !Miniduke.contains((MinidukeRecord) rec.getValue(),
-                                        (MinidukeRecord) ingestData.getRecords().next())) {
-                            recordsMatchesTmp.put(rec.getKey(), rec.getValue());
-                            distancesTmp.add(miniDukeML.getDistance().get(toAddI));
-                        }
-
-                        toAddI++;
-                    }
-
-                    recordsMatches = recordsMatchesTmp;
-                    distancesMatches = distancesTmp;
-                }
+                staticLogger.info(miniDukeML.getMatches().size()+" match(es)");
 
                 // Merging the best match to add it to the MDM
                 if (miniDukeML.getMatches().size() > 0) {
