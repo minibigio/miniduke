@@ -416,7 +416,7 @@ public class MiniDukeIntegrationTests extends ESIntegTestCase {
 
         List<String> data = new ArrayList<>();
         data.add("Maé");
-        data.add("Walton");
+        data.add("Wallon");
         data.add("1972-07-19");
         data.add("0");
         data.add("hulda73@yahoo.com");

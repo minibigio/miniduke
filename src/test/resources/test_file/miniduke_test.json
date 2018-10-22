@@ -1,5 +1,7 @@
 {"index": {"_index": "miniduke_tests", "_type": "mdm", "_id": 11}}
 {"first_name": ["Jarvis"], "last_name": ["Pepperspray"], "birth": ["1970-02-18"], "gender": ["1"], "mail": ["jarvispeppespray@johndoe.me"], "address1": ["56 rue Beauvau"], "address2": [], "zip": ["13003"], "town": ["Marseille"], "tel1": [], "tel2": ["0486019101", "0684215191"], "country": ["France"]}
+{"index": {"_index": "miniduke_tests", "_type": "mdm", "_id": 12}}
+{"first_name": ["Jarvis"], "last_name": ["Pepperspray"], "birth": ["1957-10-03"], "gender": ["1"], "mail": ["jarvis.p@google.com"], "address1": ["65 Rue Charles de Gaulles"], "address2": [], "zip": ["13003"], "town": ["Marseille"], "tel1": [], "tel2": ["0684215191"], "country": ["France"]}
 {"index": {"_index": "miniduke_tests", "_type": "mdm", "_id": 21}}
 {"first_name": ["Agathe"], "last_name": ["Royer"], "birth": ["1969-03-12"], "gender": ["0"], "mail": ["aroyer@johndoe.org"], "address1": ["128 boulevard de Prague"], "address2": ["Etage 1 porte à gauche"], "zip": ["75000"], "town": [""], "tel1": ["0628322809"], "tel2": [], "country": ["France"]}
 {"index": {"_index": "miniduke_tests", "_type": "mdm", "_id": 22}}
