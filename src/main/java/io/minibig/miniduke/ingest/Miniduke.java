@@ -83,7 +83,9 @@ public class Miniduke {
      * @param values     the values
      * @param properties the original list of properties
      * @return           the new list of properties
+     * @deprecated       this part is already done natively in Duke
      */
+    @Deprecated
     public static List<Property> checkValuesProperties(Map<String, Object> values, List<Property> properties) {
 
         boolean remove = false;

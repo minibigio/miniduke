@@ -183,6 +183,14 @@ public class MinidukeProcessor extends AbstractProcessor {
             RestHighLevelClient client = MinidukeConnection.client;
             staticLogger.info("Entry number "+MinidukeConnection.count);
 
+            configDuke.setProperties(properties);
+
+            // Start the engine !
+            no.priv.garshol.duke.Processor dukeProcessor = new no.priv.garshol.duke.Processor(configDuke);
+
+            // Custom match listener
+            dukeProcessor.addMatchListener(miniDukeML);
+
             try {
                 try {
                     Scroll scroll = new Scroll(TimeValue.timeValueMinutes(1L));
@@ -225,6 +233,8 @@ public class MinidukeProcessor extends AbstractProcessor {
                     scrollId = searchResponse.getScrollId();
                     searchHits = searchResponse.getHits().getHits();
 
+                    Collection<DataSource> arrayESData = new ArrayList<>();
+                    Collection<MinidukeRecord> records = new ArrayList<>();
 
                     // Scroll the hits ...
                     while (searchHits != null && searchHits.length > 0) {
@@ -235,28 +245,11 @@ public class MinidukeProcessor extends AbstractProcessor {
                             id.add(sh.getId());
                             idMap.put("id", id);
 
-                            Collection<MinidukeRecord> records = new ArrayList<>();
+
                             MinidukeRecord record = new MinidukeRecord();
                             record.setValues(idMap);
                             record.setValues(MinidukeRecord.formatValuesToMap(sh.getSourceAsMap()));
                             records.add(record);
-
-                            Collection<DataSource> arrayESData = new ArrayList<>();
-                            arrayESData.add(new MinidukeDatasource(records));
-
-                            properties = Miniduke.checkValuesProperties(sh.getSourceAsMap(), properties);
-
-                            configDuke.setProperties(properties);
-
-                            // Start the engine !
-                            no.priv.garshol.duke.Processor dukeProcessor = new no.priv.garshol.duke.Processor(configDuke);
-
-                            // Custom match listener
-                            dukeProcessor.addMatchListener(miniDukeML);
-
-                            // ... And link the data
-                            dukeProcessor.link(arrayIngestData, arrayESData, 40000);
-
                         }
 
                         SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
@@ -270,10 +263,17 @@ public class MinidukeProcessor extends AbstractProcessor {
                     ClearScrollRequest clearScrollRequest = new ClearScrollRequest();
                     clearScrollRequest.addScrollId(scrollId);
                     client.clearScroll(clearScrollRequest);
+
+                    arrayESData.add(new MinidukeDatasource(records));
+
+                    // ... And link the data
+                    dukeProcessor.link(arrayIngestData, arrayESData, 40000);
                 }
                 catch (Exception e) {
                     staticLogger.warn("Scroll error: "+e);
                 }
+
+
 
 
                 // Manage the matches
