@@ -11,7 +11,5 @@ services:
 
 before_install:
   - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.7.deb && sudo dpkg -i --force-confnew elasticsearch-5.6.7.deb && sudo service elasticsearch restart
-
-before_script:
   - sleep 10
-  - curl -H 'Content-Type: application/x-ndjson' -XPOST '127.0.0.1:9200/_bulk?pretty' --data-binary @src/test/resources/test_file/miniduke_test.json
+  - curl -H 'Content-Type: application/x-ndjson' -XPOST '127.0.0.1:9200/_bulk?pretty' --data-binary @/src/test/resources/test_file/miniduke_test.json
