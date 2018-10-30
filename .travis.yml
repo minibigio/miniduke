@@ -2,6 +2,9 @@ sudo: required
 
 language: java
 
+jdk:
+  - oraclejdk8
+
 services:
   - docker
   - elasticsearch
@@ -12,6 +15,3 @@ before_install:
 before_script:
   - sleep 10
   - curl -H 'Content-Type: application/x-ndjson' -XPOST '127.0.0.1:9200/_bulk?pretty' --data-binary @src/test/resources/test_file/miniduke_test.json
-
-script:
-  - gradle build
