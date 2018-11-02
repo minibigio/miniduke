@@ -1,4 +1,4 @@
-
+![Build status](https://travis-ci.org/minibigio/miniduke.svg?branch=master)
 # Welcome
 This project is a Elasticsearch plugin made for our appliance ReconIA. For more information, please see: ...
 We made this to find links and deduplicate values in a set of entries. To work, Miniduke is able to make a Master Data Managment (MDM) to enrich data.
